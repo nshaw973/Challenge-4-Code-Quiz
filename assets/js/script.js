@@ -1,3 +1,6 @@
+//Console.logs---------------------------------//
+
+
 //Global Variables-----------------------------//
 var questionNumber = 0;
 console.log(questionNumber);
@@ -87,7 +90,7 @@ function startTimer () {
         countDownEl.textContent = secondsLeft;
         //Stops Timer once it reaches 0--------//
 
-        if (secondsLeft === 0) {
+        if (secondsLeft === 0 || secondsLeft < 0) {
             removeScoreboard();
             clearInterval(timer);
             playAgain();
@@ -106,7 +109,7 @@ function addOptionsStyle (){
         enterNameBoard.classList.remove("playerName")
         optionsStyle.classList.remove("opacity-hidden")
         optionsStyle.classList.add("options");
-    } else if (questionNumber === 6 || secondsLeft === 0){
+    } else if (questionNumber === 6 || secondsLeft <= 0){
         qNum.textContent = ""
         optionsStyle.classList.remove("options");
         optionsStyle.classList.add("opacity-hidden");
@@ -119,10 +122,12 @@ function addOptionsStyle (){
 //append elements to Div//
 
 var enterNameBoard = document.querySelector(".playerScore")
+
+var formEl = document.createElement("form");
 var inputField = document.createElement("input");
 var h1El = document.createElement("h1");
 var ScoreEl = document.createElement("h2");
-var timeEl = document.createElement("h2");
+
 
 
 function enterName () {
@@ -130,20 +135,35 @@ function enterName () {
     var playerName = document.querySelector(".playerScore");
     enterNameBoard.classList.add("playerName")
     playerName.appendChild(h1El);
-    playerName.appendChild(inputField);
+    playerName.appendChild(formEl);
+    formEl.appendChild(inputField)
     playerName.appendChild(ScoreEl);
-    playerName.appendChild(timeEl);
 
-    h1El.textContent = "Enter Your Name for the Scoreboard!!!"
-    inputField.setAttribute("type", "email");
+
+    h1El.textContent = "Enter Your Name for the Scoreboard!!!";
+    formEl.setAttribute("method", "post");
+    inputField.setAttribute("type", "text");
+    inputField.setAttribute("name", "name-highscore")
     ScoreEl.classList.add("score")
-    timeEl.classList.add("timeLeft")
+
+    formEl.addEventListener("submit", function(event){
+        event.preventDefault();
+
+        var highscoreName = inputField.value.trim();
+    
+        if(highscoreName === "") {
+            return;
+        }
+
+        allScores.push(highscoreName + " - " + points);
+        inputField.value = "";
+
+        renderHighScore();
+    })
 
     var userScore = document.querySelector(".score");
-    var timeLeftScoreboard = document.querySelector(".timeLeft");
 
     //added the -5 for secondsLeft, because the final score on the scoreboard kept adding 5 for some odd reason//
-    timeLeftScoreboard.textContent = "Time: " + (secondsLeft - 5);
     userScore.textContent = "Points: " + points;
 
     playAgain();
@@ -156,18 +176,37 @@ function removeScoreboard () {
     inputField.remove();
     h1El.remove();
     ScoreEl.remove();
-    timeEl.remove();
+    formEl.remove();
    };
 
 
 
-//Get final score and have it show up on end screen
+//Logs score to get it on leaderboards--------------------------------//
+//Most of this code came from folder 26 of 04 Web APIs
 
+var highscoreInput = document.querySelector("#name-highscore")
+var scoreUl = document.querySelector(".highscore")
+var allScores = [];
 
+function renderHighScore() {
 
+for(var i = 0; i < allScores.length; i++) {
+    var highScore = allScores[i];
+    
+    var liEl = document.createElement("li");
+    liEl.textContent = highScore;
+    liEl.setAttribute("score-order", i);
+    scoreUl.appendChild(liEl);
 
+    }
+};
 
-
+function init() {
+    var storedHighScores = JSON.parse(localStorage.getItem("scores"));
+    if (storedHighScores !== null) {
+        allScores = storedHighScores;
+    }
+}
 
 
 
@@ -334,7 +373,7 @@ function wrongAnswer() {
 function correctAnswer () {
     removeListeners();
     scorePoints();
-    secondsLeft+=5;
+    secondsLeft += 5;
     questionReset();
     showQuestion();
 }
