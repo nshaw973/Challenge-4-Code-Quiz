@@ -98,7 +98,7 @@ section {
     box-shadow: 5px 5px 20px black;
 }
 
-.question-header {
+.qNum {
     position: relative;
     left: 5%;
     padding: 2%;
@@ -125,11 +125,20 @@ ul {
 /* ------------------------------------------ */
 /* Styling for each individual question boxes */
 
+.opacity-hidden {
+    opacity: 0;
+}
+
+.opacity-show{
+    opacity: 1;
+}
+
 .options {
     max-width: 50%;
     margin: 5px;
     left: 100px;
     list-style-type: none;
+    opacity: 1;
 }
 
 
@@ -144,6 +153,15 @@ ul {
     box-shadow: 5px 5px 5px black;
     border-radius: 30px;
 }
+
+/* changes the button to grow bigger on hover and become a little darker */
+
+.options button:hover {
+    background-color: rgb(73, 151, 73);
+    transition: .2s;
+    transform: scale(1.02);
+}
+
 
 
 /* ------------------------------------------ */
@@ -176,6 +194,29 @@ ul {
     left: 80px;
     list-style-type:decimal
 }
+
+/* ------------------------------------------ */
+/* Scoreboard Playername enter--------------- */
+
+.playerName {
+    max-width: 450px;
+    height: 200px;
+    position: relative;
+    left: 275px;
+    background-color: rgb(146, 212, 146);
+    box-shadow: 5px 5px 20px black;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.playerName input {
+    font-size: 40px;
+    width: 400px;
+    height: 50px;
+}
+
+
 
 
 /* ------------------------------------------ */
