@@ -1,11 +1,10 @@
 //Global Variables-----------------------------//
 
-var secondsLeft  = 120;
+var secondsLeft  = 10;
 
 //---------------------------------------------//
 //QuerySelectors-------------------------------//
-
-
+//Question QuerySelectors----------------------//
 var qNum = document.querySelector(".qNum")
 var question = document.querySelector(".question")
 var optionOne = document.querySelector("#o1")
@@ -13,11 +12,23 @@ var optionTwo = document.querySelector("#o2")
 var optionThree = document.querySelector("#o3")
 var optionFour = document.querySelector("#o4")
 
-
 //---------------------------------------------//
 //Functions------------------------------------//
 
 
+
+//---------------------------------------------//
+//Score----------------------------------------//
+
+var pointsEl = document.querySelector("#points")
+var points = 0;
+
+//Adds points based on how much time is left, the more time the more points are awarded//
+function scorePoints() {
+    var score = secondsLeft;
+    points = score + points;
+    pointsEl.textContent = points;
+}
 
 
 
@@ -40,7 +51,6 @@ function startQuiz() {
 var countDownEl = document.querySelector("#countDown");
 var timer;
 
-
 function startTimer () {
     timer = setInterval(function() {
         secondsLeft--;
@@ -57,9 +67,10 @@ function startTimer () {
 //---------------------------------------------//
 //Questions------------------------------------//
 
-var scorePoints;
 var correctAnswer; 
 var wrongAnswer;
+
+//Question #1 ---------------------------------//
 
 function questionOne() {
     qNum.textContent = '1'
@@ -68,23 +79,33 @@ function questionOne() {
     optionTwo.textContent = 14
     optionThree.textContent = 'fifteen'
     optionFour.textContent = 12
-    if (optionTwo.onclick) {
-        secondsLeft + 20;
-        questionReset();
-        questionTwo();
 
-    }
+optionTwo.addEventListener("click", function(){
+    scorePoints();
+    secondsLeft+=5;
+    questionReset();
+    questionTwo();
 
+})
 }
+
+//Question #2 ---------------------------------//
 
 function questionTwo() {
     qNum.textContent = '2';
     question.textContent = "How long is 1000 in a setInterval function";
     optionOne.textContent = "10 Seconds";
-    optionTwo.textContent = "1 second";
+    optionTwo.textContent = "1000 microseconds";
     optionThree.textContent = "1 minute";
-    optionFour.textContent = "1000 microseconds";
+    optionFour.textContent = "1 second";
 
+//Correct Answer ------------------------------//
+
+    optionFour.addEventListener("click", function(){
+        scorePoints();
+        secondsLeft+= 5;
+        questionReset();
+    })
 }
 
 //---------------------------------------------//
