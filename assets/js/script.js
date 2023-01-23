@@ -41,16 +41,19 @@ startButton.addEventListener("click", startQuiz)
 function startQuiz() {
     startButton.textContent = "Start"
     clearScTim();
+    //keeps button from being clicked again by user mid quiz//
     startButton.disabled = true;
     startTimer();
     showQuestion();
 
 }
 
-//clear score and time//
+//clear score and time on play again so that the score and timer don't stack on top of each other//
 function clearScTim () {
     points = 0;
     secondsLeft = 10;
+    pointsEl.textContent = 0;
+    countDownEl.textContent = 10;
 }
 
 //---------------------------------------------//
@@ -208,7 +211,7 @@ function questionFive() {
         clearInterval(timer);
         questionNumber = 1;
         startButton.disabled = false;
-        startButton.textContent = "Play Again?";
+        startButton.textContent = "Play Again?"
 
     });
 
