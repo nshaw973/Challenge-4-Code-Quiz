@@ -24,8 +24,8 @@ var optionTwo = document.querySelector("#o2");
 var optionThree = document.querySelector("#o3");
 var optionFour = document.querySelector("#o4");
 
-//-------------------------------------------------------------------------------------------------------//
-//Score, Start Button, and Countdown---------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------//
+//Score, Start Button, and Countdown---------------------------------------------------------------------------------------------//
 //---------------------------------------------//
 //Score----------------------------------------//
 
@@ -125,8 +125,8 @@ function addOptionsStyle (){
         optionsStyle.classList.add("opacity-hidden");
     }}
 
-//-------------------------------------------------------------------------------------------------------//
-//Scoreboard log-----------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------//
+//Scoreboard log-----------------------------------------------------------------------------------------------------------------//
 
 //Enter Your Name ------------------------------------------------------------------//
 //append elements to Div//
@@ -167,11 +167,17 @@ function enterName () {
 
         allScores.push(highscoreName + " - " + points);
         inputField.value = "";
-        //Removes the Scoreboard, then it renders the score onto the Scoreboard
+    
+        //Removes the Scoreboard, then it stores the highscores to local storage , lastly it renders the score onto the Scoreboard
         removeScoreboard();
         storedHighScores();
-        renderHighScore();
-    })
+
+        //keeps from rendering more scores after 10 have been logged.
+        if(allScores.length < 11){
+            renderHighScore();
+        } 
+        
+    });
 
     var userScore = document.querySelector(".score");
 
@@ -192,6 +198,25 @@ function removeScoreboard () {
     formEl.remove();
    };
 
+//Code taken from 04 Web Apis - Folder 26
+
+var reserBtn = document.querySelector(".resetscore");
+reserBtn.addEventListener("click", function resetLogScores(event){
+    var element = event.target;
+
+
+    if (element.matches("button") === true) {
+      var index = element.parentElement.getAttribute("data-index");
+      //edited out the 1, to make sure it deletes everything as long as the allscores length.
+      allScores.splice(index, allScores.length);
+  
+
+      storedHighScores();
+      renderHighScore();
+    }
+  
+
+});
 
 
 //Logs score to get it on leaderboards--------------------------------//
@@ -203,6 +228,8 @@ var allScores = [];
 console.log(allScores)
 
 function renderHighScore() {
+    scoreUl.innerHTML = "";
+
 
 for(var i = 0; i < allScores.length; i++) {
 
@@ -213,8 +240,11 @@ for(var i = 0; i < allScores.length; i++) {
     liEl.setAttribute("score-order", i);
     scoreUl.appendChild(liEl);
 
+
     }
 };
+
+//Stores Highscores and renders them onto the Scoreboard upon page refresh, or reopening the page after closing
 
 function storedHighScores() {
     localStorage.setItem("scores", JSON.stringify(allScores));
@@ -227,8 +257,6 @@ function init() {
     }
     renderHighScore();
 }
-
-
 
 init()
 
