@@ -1,5 +1,13 @@
-//Console.logs---------------------------------//
-
+//Table of Contents
+//--------------------Line
+//Score             --    --
+//Start Button      --
+//Countdown         -- 
+//Page Styling      --
+//--------------------------//
+//Scoreboard Logger --
+//Question Events   --
+//Extra Functions   --
 
 //Global Variables-----------------------------//
 var questionNumber = 0;
@@ -59,6 +67,7 @@ function startQuiz() {
 
 function playAgain() {
     questionNumber = 0;
+    inputField.value = "";
     addOptionsStyle();
     questionReset();
     clearInterval(timer);
@@ -100,6 +109,7 @@ function startTimer () {
 }
 
 //Page Styling---------------------------------//
+//This will empty out the Box the Questions appear in when the quiz isn't playing
 
 var optionsStyle = document.querySelector(".option-style");
 
@@ -157,7 +167,9 @@ function enterName () {
 
         allScores.push(highscoreName + " - " + points);
         inputField.value = "";
-
+        //Removes the Scoreboard, then it renders the score onto the Scoreboard
+        removeScoreboard();
+        storedHighScores();
         renderHighScore();
     })
 
@@ -173,6 +185,7 @@ function enterName () {
 //This will remove the scoreboard by removing the elements that were created previously for the html//
 
 function removeScoreboard () {
+    enterNameBoard.classList.remove("playerName")
     inputField.remove();
     h1El.remove();
     ScoreEl.remove();
@@ -187,10 +200,12 @@ function removeScoreboard () {
 var highscoreInput = document.querySelector("#name-highscore")
 var scoreUl = document.querySelector(".highscore")
 var allScores = [];
+console.log(allScores)
 
 function renderHighScore() {
 
 for(var i = 0; i < allScores.length; i++) {
+
     var highScore = allScores[i];
     
     var liEl = document.createElement("li");
@@ -201,14 +216,21 @@ for(var i = 0; i < allScores.length; i++) {
     }
 };
 
+function storedHighScores() {
+    localStorage.setItem("scores", JSON.stringify(allScores));
+}
+
 function init() {
     var storedHighScores = JSON.parse(localStorage.getItem("scores"));
     if (storedHighScores !== null) {
         allScores = storedHighScores;
     }
+    renderHighScore();
 }
 
 
+
+init()
 
 //-------------------------------------------------------------------------------------------------------//
 //-------------------------------------------------------------------------------------------------------//
