@@ -1,13 +1,13 @@
 //Table of Contents
 //--------------------Line
-//Score             --    --
-//Start Button      --
-//Countdown         -- 
-//Page Styling      --
+//Score             --  28  --
+//Start Button      --  47  --
+//Countdown         --  87  --
+//Page Styling      -- 111  --
 //--------------------------//
-//Scoreboard Logger --
-//Question Events   --
-//Extra Functions   --
+//Scoreboard Logger -- 129  --
+//Question Events   -- 274  --
+//Extra Functions   -- 416  --
 
 //Global Variables-----------------------------//
 var questionNumber = 0;
@@ -165,6 +165,12 @@ function enterName () {
             return;
         }
 
+        //Prevents from someone using a name that would go off the screen
+        if(highscoreName.length > 20){
+            window.alert("Max length of name is 10 characters!")
+            return;
+        }
+
         allScores.push(highscoreName + " - " + points);
         inputField.value = "";
     
@@ -199,7 +205,7 @@ function removeScoreboard () {
    };
 
 //Code taken from 04 Web Apis - Folder 26
-
+//This will help remove the scores from the scoreboard
 var reserBtn = document.querySelector(".resetscore");
 reserBtn.addEventListener("click", function resetLogScores(event){
     var element = event.target;
@@ -228,6 +234,7 @@ var allScores = [];
 console.log(allScores)
 
 function renderHighScore() {
+
     scoreUl.innerHTML = "";
 
 
@@ -333,6 +340,7 @@ function questionTwo() {
     optionFour.addEventListener("click", correctAnswer);
 
     //Incorrect Answer ------------------------//
+
     optionOne.addEventListener("click", wrongAnswer);
     optionTwo.addEventListener("click", wrongAnswer);
     optionThree.addEventListener("click", wrongAnswer);
@@ -354,6 +362,7 @@ function questionThree() {
     optionOne.addEventListener("click", correctAnswer);
 
     //Incorrect Answer ------------------------//
+
     optionTwo.addEventListener("click", wrongAnswer);
     optionThree.addEventListener("click", wrongAnswer);
     optionFour.addEventListener("click", wrongAnswer);
@@ -374,6 +383,8 @@ function questionFour() {
 
     optionFour.addEventListener("click", correctAnswer);
 
+   //Incorrect Answer ------------------------//
+
     optionOne.addEventListener("click", wrongAnswer);
     optionTwo.addEventListener("click", wrongAnswer);
     optionThree.addEventListener("click", wrongAnswer);
@@ -383,7 +394,7 @@ function questionFour() {
 
 function questionFive() {
     qNum.textContent = 'Question: 5';
-    question.textContent = "Using a console.log(This) selects what?";
+    question.textContent = "Using a console.log(This) in the globalselects what?";
     optionOne.textContent = "returns as undefined";
     optionTwo.textContent = "the variable above";
     optionThree.textContent = "Window";
@@ -393,6 +404,8 @@ function questionFive() {
     //Option 4//
 
     optionThree.addEventListener("click", correctAnswer);
+
+   //Incorrect Answer ------------------------//
 
     optionOne.addEventListener("click", wrongAnswer);
     optionTwo.addEventListener("click", wrongAnswer);

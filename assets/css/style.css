@@ -168,7 +168,7 @@ ul {
 /* Scoreboard styling------------------------ */
 
 .scoreboard{
-    max-width: 600px;
+    max-width: 3000px;
     max-height: 550px;
     position: relative;
     top: 50px;
@@ -189,6 +189,7 @@ ul {
 
 .scoreboard ul li {
     font-size: 25px;
+    width: 1000px;
     padding: 10px;
     position: relative;
     left: 80px;
