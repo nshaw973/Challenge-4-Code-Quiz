@@ -1,4 +1,7 @@
 # 04 Web APIs: Code Quiz
+## Deployed Page
+
+https://nshaw973.github.io/Challenge-4-Code-Quiz/
 
 ## How To Use
 
