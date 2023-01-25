@@ -394,7 +394,7 @@ function questionFour() {
 
 function questionFive() {
     qNum.textContent = 'Question: 5';
-    question.textContent = "Using a console.log(This) in the globalselects what?";
+    question.textContent = "Using a console.log(This) in the global selects what?";
     optionOne.textContent = "returns as undefined";
     optionTwo.textContent = "the variable above";
     optionThree.textContent = "Window";
@@ -428,7 +428,7 @@ function questionReset() {
 //Wrong Answer ---------------------------------//
 
 function wrongAnswer() {
-    secondsLeft-= 5;
+    secondsLeft-= 3;
 } 
 
 //Correct Answer -------------------------------//
